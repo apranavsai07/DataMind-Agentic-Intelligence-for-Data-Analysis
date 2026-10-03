@@ -1,0 +1,217 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: white;
+  background: #050307;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  background: #050307;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   DATAMIND BRAND LOGO STYLING
+   ============================================================ */
+
+@keyframes datamind-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.brand-datamind {
+  display: inline-flex;
+  align-items: baseline;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  user-select: none;
+}
+
+.brand-data {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.brand-mind {
+  font-weight: 800;
+  background: linear-gradient(
+    135deg,
+    #9333ea 0%,
+    #ec4899 28%,
+    #8b5cf6 52%,
+    #ff9ffc 76%,
+    #6366f1 100%
+  );
+  background-size: 260% 260%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: datamind-gradient 4.5s ease infinite alternate;
+}
+.app-background {
+  position: fixed;
+  inset: 0;
+
+  width: 100%;
+  height: 100vh;
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #050307;
+}
+
+.landing-page {
+  position: relative;
+  min-height: 100vh;
+  background: #050307;
+}
+
+.app-background {
+  position: fixed;
+  inset: 0;
+
+  width: 100%;
+  height: 100vh;
+
+  z-index: 0;
+  pointer-events: none;
+
+  overflow: hidden;
+}
+
+.landing-content {
+  position: relative;
+  z-index: 1;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+.landing-navbar {
+  position: fixed;
+  top: 24px;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 0 24px;
+
+  pointer-events: none;
+}
+
+.landing-navbar-inner {
+  pointer-events: auto;
+
+  width: min(880px, 100%);
+  min-height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 6px 8px 6px 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+
+  background: rgba(18, 14, 26, 0.48);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+}
+
+.landing-navbar-cta {
+  flex-shrink: 0;
+
+  border: none;
+  border-radius: 999px;
+
+  padding: 11px 22px;
+
+  background: white;
+  color: #0a0710;
+
+  font-size: 0.875rem;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.landing-navbar-cta:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 28px rgba(255, 159, 252, 0.25);
+}
+
+@media (max-width: 700px) {
+  .landing-navbar {
+    top: 14px;
+    padding: 0 12px;
+  }
+
+  .landing-navbar-inner {
+    gap: 6px;
+  }
+
+  .landing-navbar-cta {
+    padding: 9px 14px;
+    font-size: 0.78rem;
+  }
+}

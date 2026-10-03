@@ -1,0 +1,378 @@
+/**
+ * pdfGenerator.js
+ *
+ * Converts a markdown string into a styled, downloadable PDF.
+ * Uses:
+ *   - marked     → markdown → HTML
+ *   - html2canvas → HTML element → canvas
+ *   - jspdf       → canvas → PDF
+ *
+ * Usage:
+ *   import { downloadMarkdownAsPdf } from "../lib/pdfGenerator";
+ *   await downloadMarkdownAsPdf(markdownString, "My Report");
+ */
+
+/**
+ * Build a fully self-contained, styled HTML document string from markdown text.
+ * The document is rendered into a hidden off-screen iframe so html2canvas can
+ * capture it at a fixed width independent of the user's viewport.
+ */
+function buildStyledHtml(markdownHtml, title) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>${title}</title>
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Page ── */
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 13px;
+      line-height: 1.75;
+      color: #1a1a2e;
+      background: #ffffff;
+      padding: 56px 64px;
+      max-width: 800px;
+    }
+
+    /* ── Header bar ── */
+    .pdf-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 18px;
+      border-bottom: 2px solid #6366f1;
+      margin-bottom: 32px;
+    }
+    .pdf-header-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #6366f1;
+    }
+    .pdf-header-date {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    /* ── Headings ── */
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e1b4b;
+      margin-top: 28px;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #312e81;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+    h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #4338ca;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    /* ── Paragraphs ── */
+    p {
+      margin-bottom: 12px;
+      color: #1e293b;
+    }
+
+    /* ── Lists ── */
+    ul, ol {
+      margin: 8px 0 14px 20px;
+    }
+    li {
+      margin-bottom: 5px;
+      color: #1e293b;
+    }
+    li > ul, li > ol {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    /* ── Inline code ── */
+    code {
+      font-family: 'Cascadia Code', 'Fira Mono', 'Consolas', monospace;
+      font-size: 12px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: #4338ca;
+    }
+
+    /* ── Code blocks ── */
+    pre {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 3px solid #6366f1;
+      border-radius: 6px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin: 12px 0 18px;
+    }
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: #1e293b;
+      font-size: 12px;
+    }
+
+    /* ── Blockquote ── */
+    blockquote {
+      border-left: 3px solid #6366f1;
+      background: #f5f3ff;
+      padding: 10px 16px;
+      margin: 12px 0;
+      border-radius: 0 6px 6px 0;
+      color: #3730a3;
+      font-style: italic;
+    }
+
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 12px;
+    }
+    thead {
+      background: #6366f1;
+      color: #ffffff;
+    }
+    th {
+      padding: 9px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.3px;
+    }
+    td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #334155;
+    }
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    /* ── Horizontal rule ── */
+    hr {
+      border: none;
+      border-top: 1px solid #e2e8f0;
+      margin: 24px 0;
+    }
+
+    /* ── Bold / Italic ── */
+    strong { color: #1a1a2e; font-weight: 700; }
+    em     { color: #475569; }
+
+    /* ── Links (no underline in print) ── */
+    a { color: #4338ca; text-decoration: none; }
+
+    /* ── Footer ── */
+    .pdf-footer {
+      margin-top: 40px;
+      padding-top: 14px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 10px;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <div class="pdf-header">
+    <span class="pdf-header-title">DataMind — Report</span>
+    <span class="pdf-header-date">${new Date().toLocaleDateString("en-GB", {
+      day: "numeric", month: "long", year: "numeric"
+    })}</span>
+  </div>
+
+  <div class="pdf-body">
+    ${markdownHtml}
+  </div>
+
+  <div class="pdf-footer">
+    <span>${title}</span>
+    <span>Generated by DataMind Workspace</span>
+  </div>
+</body>
+</html>`;
+}
+
+/**
+ * Renders a styled HTML string into an off-screen iframe, captures it with
+ * html2canvas, and converts the resulting canvas to a jsPDF document.
+ *
+ * @param {string} markdown  - Raw markdown string to render.
+ * @param {string} filename  - Desired PDF filename (without .pdf extension).
+ */
+export async function downloadMarkdownAsPdf(markdown, filename = "report") {
+  // Dynamic imports keep the heavy libraries out of the initial bundle.
+  const [{ marked }, { default: html2canvas }, { jsPDF }] = await Promise.all([
+    import("marked"),
+    import("html2canvas"),
+    import("jspdf"),
+  ]);
+
+  // Configure marked for GitHub-flavoured markdown.
+  marked.setOptions({ gfm: true, breaks: true });
+
+  const markdownHtml = marked.parse(markdown);
+  const styledHtml   = buildStyledHtml(markdownHtml, filename);
+
+  // ── Render into a hidden iframe ──
+  const iframe = document.createElement("iframe");
+  iframe.style.cssText =
+    "position:fixed;top:-9999px;left:-9999px;width:820px;height:auto;border:none;visibility:hidden;";
+  document.body.appendChild(iframe);
+
+  await new Promise((resolve) => {
+    iframe.onload = resolve;
+    iframe.srcdoc = styledHtml;
+  });
+
+  // Give the browser a tick to finish layout.
+  await new Promise((r) => setTimeout(r, 300));
+
+  const body = iframe.contentDocument?.body;
+  if (!body) {
+    document.body.removeChild(iframe);
+    throw new Error("Could not render report for PDF export.");
+  }
+
+  // ── Capture with html2canvas ──
+  const canvas = await html2canvas(body, {
+    scale: 2,           // 2× for crisp text on high-DPI screens
+    useCORS: true,
+    backgroundColor: "#ffffff",
+    windowWidth: 820,
+    scrollX: 0,
+    scrollY: 0,
+  });
+
+  document.body.removeChild(iframe);
+
+  // ── Build PDF ──
+  const imgData  = canvas.toDataURL("image/png");
+  const pdfW     = 210;               // A4 width  (mm)
+  const pdfH     = 297;               // A4 height (mm)
+  const imgW     = pdfW;
+  const imgH     = (canvas.height * pdfW) / canvas.width;
+
+  const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+  let yPos  = 0;
+
+  // If the content is taller than one page, split across multiple pages.
+  while (yPos < imgH) {
+    if (yPos > 0) pdf.addPage();
+
+    pdf.addImage(
+      imgData,
+      "PNG",
+      0,                      // x
+      -yPos,                  // y offset (negative = scroll into image)
+      imgW,
+      imgH
+    );
+
+    yPos += pdfH;
+  }
+
+  pdf.save(`${filename.replace(/[^\w\s-]/g, "").trim() || "report"}.pdf`);
+}
+
+/**
+ * Convenience wrapper — downloads plain text as a UTF-8 text file.
+ * Used as a fallback for non-report output types.
+ *
+ * @param {string} text
+ * @param {string} filename
+ */
+export function downloadTextFile(text, filename = "output.txt") {
+  const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement("a");
+  a.href     = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 10_000);
+}
+
+/**
+ * Downloads CSV content as a properly encoded UTF-8 CSV file.
+ * Includes UTF-8 BOM so Excel and spreadsheet applications display columns
+ * cleanly without encoding glitches or merging issues.
+ *
+ * @param {string} csvText
+ * @param {string} filename
+ */
+export function downloadCsvFile(csvText, filename = "cleaned_data.csv") {
+  const safeName = filename.toLowerCase().endsWith(".csv") ? filename : `${filename}.csv`;
+  const blob = new Blob(["\uFEFF" + csvText], { type: "text/csv;charset=utf-8;" });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement("a");
+  a.href     = url;
+  a.download = safeName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 10_000);
+}
+
+/**
+ * Downloads a visualization image given its URL and filename.
+ *
+ * @param {string} imageUrl
+ * @param {string} filename
+ */
+export async function downloadImageFromUrl(imageUrl, filename = "chart.png") {
+  const safeName = filename.toLowerCase().endsWith(".png") ? filename : `${filename}.png`;
+  try {
+    const res = await fetch(imageUrl);
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = safeName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 10_000);
+  } catch {
+    // Direct link trigger fallback
+    const a = document.createElement("a");
+    a.href = imageUrl;
+    a.download = safeName;
+    a.target = "_blank";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+}

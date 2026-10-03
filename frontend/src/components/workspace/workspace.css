@@ -1,0 +1,985 @@
+/* ============================================================
+   WORKSPACE CSS
+   Inherits the landing page design language.
+   Prioritizes readability and information density.
+============================================================ */
+
+/* ============================================================
+   PAGE SHELL
+============================================================ */
+
+.workspace-page {
+  position: relative;
+  min-height: 100vh;
+  background: #050307;
+  color: white;
+  font-family: "Inter", sans-serif;
+}
+
+.workspace-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  /* Subtle dark radial glow — less active than MoltenMetal */
+  background:
+    radial-gradient(
+      ellipse 60% 50% at 50% 0%,
+      rgba(82, 39, 255, 0.09) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 40% 30% at 80% 80%,
+      rgba(255, 159, 252, 0.05) 0%,
+      transparent 60%
+    );
+}
+
+/* ============================================================
+   NAVBAR
+============================================================ */
+
+.workspace-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(5, 3, 7, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.workspace-navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+}
+
+.workspace-navbar-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5227ff, #ff9ffc);
+  box-shadow: 0 0 10px rgba(255, 159, 252, 0.55);
+  flex-shrink: 0;
+}
+
+.workspace-navbar-name {
+  font-size: 0.9rem;
+  font-weight: 650;
+  color: white;
+  letter-spacing: -0.01em;
+}
+
+.workspace-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.workspace-navbar-user {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.4);
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workspace-navbar-signout {
+  padding: 7px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.workspace-navbar-signout:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* ============================================================
+   MAIN CONTENT
+============================================================ */
+
+.workspace-main {
+  position: relative;
+  z-index: 1;
+  padding-top: 60px; /* navbar height */
+  min-height: 100vh;
+}
+
+.workspace-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* ============================================================
+   SECTION LABEL
+============================================================ */
+
+.ws-label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ff9ffc;
+  margin-bottom: 8px;
+}
+
+/* ============================================================
+   GLASS PANEL
+============================================================ */
+
+.ws-panel {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  background: rgba(14, 11, 20, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
+}
+
+.ws-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.ws-panel-title {
+  font-size: 0.92rem;
+  font-weight: 650;
+  color: white;
+  letter-spacing: -0.01em;
+}
+
+.ws-panel-body {
+  padding: 22px;
+}
+
+/* ============================================================
+   DIVIDER
+============================================================ */
+
+.ws-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  margin: 24px 0;
+}
+
+/* ============================================================
+   STAT CHIP
+============================================================ */
+
+.ws-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.ws-stat {
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.ws-stat-value {
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: white;
+  line-height: 1;
+}
+
+.ws-stat-label {
+  margin-top: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.38);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* ============================================================
+   BADGE
+============================================================ */
+
+.ws-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.03em;
+  line-height: 1.6;
+}
+
+.ws-badge--purple {
+  background: rgba(82, 39, 255, 0.18);
+  border: 1px solid rgba(82, 39, 255, 0.35);
+  color: #a78bfa;
+}
+
+.ws-badge--pink {
+  background: rgba(255, 159, 252, 0.1);
+  border: 1px solid rgba(255, 159, 252, 0.3);
+  color: #ff9ffc;
+}
+
+.ws-badge--green {
+  background: rgba(52, 211, 153, 0.1);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  color: #6ee7b7;
+}
+
+.ws-badge--orange {
+  background: rgba(251, 146, 60, 0.1);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  color: #fbb96e;
+}
+
+/* ============================================================
+   TABLE
+============================================================ */
+
+.ws-table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.ws-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.ws-table thead {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ws-table th {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  white-space: nowrap;
+}
+
+.ws-table td {
+  padding: 10px 14px;
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  vertical-align: top;
+}
+
+.ws-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.ws-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+/* ============================================================
+   TABS
+============================================================ */
+
+.ws-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  flex-wrap: wrap;
+}
+
+.ws-tab {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.ws-tab:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ws-tab--active {
+  background: rgba(82, 39, 255, 0.22);
+  color: white;
+  border: 1px solid rgba(82, 39, 255, 0.4);
+}
+
+/* ============================================================
+   EMPTY STATE
+============================================================ */
+
+.ws-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  gap: 10px;
+}
+
+.ws-empty-icon {
+  font-size: 2rem;
+  line-height: 1;
+  opacity: 0.5;
+}
+
+.ws-empty-text {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.35);
+  line-height: 1.55;
+  max-width: 280px;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 768px) {
+  .workspace-inner {
+    padding: 24px 16px 60px;
+  }
+
+  .ws-stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .workspace-navbar-user {
+    display: none;
+  }
+}
+
+/* ============================================================
+   MODULE 1 — LAYOUT SHELL
+   ws-layout: full-viewport wrapper
+   ws-header: fixed top bar
+   ws-body: sidebar + main side-by-side
+   ws-main: scrollable content area
+============================================================ */
+
+/* ── Layout root ──────────────────────────────────────────── */
+.ws-layout {
+  position: relative;
+  min-height: 100vh;
+  background: #050307;
+  color: white;
+  font-family: "Inter", sans-serif;
+}
+
+/* ── Animated background canvas ─────────────────────────────── */
+.ws-bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure all layout children sit above the background */
+.ws-header,
+.ws-body,
+.ws-sidebar,
+.ws-main {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ── Header ───────────────────────────────────────────────── */
+.ws-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(5, 3, 7, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.ws-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ws-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+}
+
+.ws-header-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5227ff, #ff9ffc);
+  box-shadow: 0 0 10px rgba(255, 159, 252, 0.55);
+  flex-shrink: 0;
+}
+
+.ws-header-brand-name {
+  font-size: 0.9rem;
+  font-weight: 650;
+  color: white;
+  letter-spacing: -0.01em;
+}
+
+.ws-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ws-header-identity {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.42);
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Hamburger — hidden on desktop */
+.ws-header-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 34px;
+  height: 34px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.ws-header-hamburger:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ws-header-hamburger span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 2px;
+  transition: background 0.2s ease;
+}
+
+/* ── Body wrapper ─────────────────────────────────────────── */
+.ws-body {
+  display: flex;
+  padding-top: 60px; /* header height */
+  min-height: 100vh;
+}
+
+/* ── Sidebar ──────────────────────────────────────────────── */
+.ws-sidebar {
+  position: fixed;
+  top: 60px; /* below header */
+  left: 0;
+  bottom: 0;
+  width: 220px;
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(8, 5, 14, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ── Sidebar top (New Analysis) ─────────────────────────── */
+.ws-sidebar-top {
+  padding: 20px 14px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ws-sidebar-new {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 14px;
+  border-radius: 12px;
+
+  background: rgba(82, 39, 255, 0.18);
+  border: 1px solid rgba(82, 39, 255, 0.35);
+  color: #c4b5fd;
+
+  font-size: 0.82rem;
+  font-weight: 650;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.ws-sidebar-new:hover {
+  background: rgba(82, 39, 255, 0.28);
+  border-color: rgba(82, 39, 255, 0.55);
+  color: white;
+}
+
+/* ── Sidebar nav ─────────────────────────────────────────── */
+.ws-sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 10px 8px;
+  gap: 2px;
+}
+
+.ws-sidebar-section-label {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+  padding: 0 8px;
+  margin-bottom: 6px;
+}
+
+.ws-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 9px 10px;
+  border-radius: 10px;
+
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.ws-sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.ws-sidebar-link--active {
+  background: rgba(82, 39, 255, 0.12);
+  color: #c4b5fd;
+  border: 1px solid rgba(82, 39, 255, 0.2);
+}
+
+.ws-sidebar-link--active:hover {
+  background: rgba(82, 39, 255, 0.18);
+  color: white;
+}
+
+/* ── Sidebar bottom (Settings + Sign out) ────────────────── */
+.ws-sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 10px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ws-sidebar-signout {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 10px;
+
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.28);
+  font-size: 0.78rem;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  text-align: left;
+
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.ws-sidebar-signout:hover {
+  background: rgba(255, 80, 80, 0.07);
+  color: rgba(255, 130, 130, 0.85);
+}
+
+/* ── Main content ────────────────────────────────────────── */
+.ws-main {
+  flex: 1;
+  margin-left: 220px; /* sidebar width */
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 60px);
+}
+
+.ws-main-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 28px 80px;
+}
+
+/* ── Placeholder pages ───────────────────────────────────── */
+.ws-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.ws-placeholder-title {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: white;
+}
+
+.ws-placeholder-sub {
+  margin: 0;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.35);
+  line-height: 1.55;
+  max-width: 420px;
+}
+
+.ws-placeholder-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ── Mobile drawer ───────────────────────────────────────── */
+.ws-drawer {
+  display: none; /* only shown on mobile */
+}
+
+.ws-drawer-overlay {
+  display: none;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Show hamburger, hide brand name */
+  .ws-header-hamburger {
+    display: flex;
+  }
+
+  .ws-header-brand-name {
+    display: none;
+  }
+
+  /* Hide static sidebar */
+  .ws-sidebar {
+    display: none;
+  }
+
+  /* Main fills full width */
+  .ws-main {
+    margin-left: 0;
+  }
+
+  /* Drawer: slides in from left */
+  .ws-drawer {
+    display: block;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    width: 240px;
+    z-index: 300;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .ws-drawer--open {
+    transform: translateX(0);
+  }
+
+  .ws-drawer .ws-sidebar {
+    display: flex;
+    position: static;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Overlay behind drawer */
+  .ws-drawer-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    top: 60px;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 250;
+    backdrop-filter: blur(2px);
+  }
+
+  .ws-main-inner {
+    padding: 28px 16px 60px;
+  }
+
+  .ws-header-identity {
+    display: none;
+  }
+}
+
+
+/* =========================================
+   PROMPT HELPERS
+   ========================================= */
+
+.prompt-helper-section {
+  width: 100%;
+  margin-top: 22px;
+  margin-bottom: 4px;
+}
+
+.prompt-helper-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.prompt-helper-eyebrow {
+  display: block;
+  margin-bottom: 7px;
+  color: #d99be9;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+
+.prompt-helper-title {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.98rem;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+
+.prompt-helper-description {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 0.43);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+/* Six compact prompt cards */
+
+.prompt-helper-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.prompt-helper-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+  min-height: 66px;
+  padding: 12px 13px;
+
+  color: rgba(255, 255, 255, 0.85);
+  text-align: left;
+
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.prompt-helper-card:hover {
+  background: rgba(130, 75, 255, 0.09);
+  border-color: rgba(177, 123, 255, 0.42);
+  box-shadow: 0 4px 18px rgba(99, 49, 190, 0.08);
+  transform: translateY(-2px);
+}
+
+.prompt-helper-card:active {
+  transform: translateY(0);
+}
+
+.prompt-helper-card:focus-visible {
+  outline: 2px solid #b88aff;
+  outline-offset: 3px;
+}
+
+.prompt-helper-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 34px;
+  height: 34px;
+
+  color: #d3a5ff;
+  font-size: 1.1rem;
+
+  background: rgba(135, 80, 255, 0.12);
+  border: 1px solid rgba(170, 120, 255, 0.13);
+  border-radius: 9px;
+}
+
+.prompt-helper-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.prompt-helper-label {
+  color: rgba(255, 255, 255, 0.91);
+  font-size: 0.83rem;
+  font-weight: 600;
+}
+
+.prompt-helper-card-description {
+  color: rgba(255, 255, 255, 0.43);
+  font-size: 0.69rem;
+  line-height: 1.35;
+}
+
+.prompt-helper-arrow {
+  flex-shrink: 0;
+  align-self: flex-start;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.85rem;
+  transition: color 180ms ease;
+}
+
+.prompt-helper-card:hover .prompt-helper-arrow {
+  color: #d3a5ff;
+}
+
+/* Tablet */
+
+@media (max-width: 760px) {
+  .prompt-helper-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .prompt-helper-card {
+    padding: 11px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 420px) {
+  .prompt-helper-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .prompt-helper-card {
+    min-height: 62px;
+  }
+
+  .prompt-helper-title {
+    font-size: 0.92rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prompt-helper-card,
+  .prompt-helper-arrow {
+    transition: none;
+  }
+
+  .prompt-helper-card:hover {
+    transform: none;
+  }
+}
+

@@ -1,0 +1,286 @@
+.line-sidebar {
+  --accent-color: #ff9ffc;
+  --text-color: #8f8997;
+  --marker-color: #403a47;
+
+  --marker-length: 58px;
+  --marker-gap: 14px;
+
+  --tick-scale: 0.35;
+
+  --max-shift: 28px;
+
+  --item-gap: 32px;
+
+  --font-size: 1.15rem;
+
+  position: relative;
+
+  display: flex;
+
+  justify-content: flex-start;
+}
+
+/* --------------------------------
+   MARKER OFFSET
+-------------------------------- */
+
+.line-sidebar--markers {
+  padding-left: calc(
+    var(--marker-length) +
+      var(--marker-gap)
+  );
+}
+
+/* --------------------------------
+   LIST
+-------------------------------- */
+
+.line-sidebar__list {
+  list-style: none;
+
+  margin: 0;
+
+  padding: 1rem 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: var(--item-gap);
+}
+
+/* --------------------------------
+   ITEM
+-------------------------------- */
+
+.line-sidebar__item {
+  position: relative;
+
+  cursor: pointer;
+}
+
+/*
+  Invisible hover area.
+  Keeps the interaction area larger
+  without changing the visual layout.
+*/
+
+.line-sidebar__item::before {
+  content: "";
+
+  position: absolute;
+
+  inset: -10px -55px;
+}
+
+/* --------------------------------
+   LABEL
+-------------------------------- */
+
+.line-sidebar__label {
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: baseline;
+
+  font-size: var(--font-size);
+
+  line-height: 1.2;
+
+  color: color-mix(
+    in srgb,
+    var(--accent-color)
+      calc(var(--effect, 0) * 100%),
+    var(--text-color)
+  );
+
+  transform: translateX(
+    calc(
+      var(--effect, 0) *
+        var(--max-shift)
+    )
+  );
+
+  transition:
+    color 0.08s linear,
+    transform 0.12s ease;
+}
+
+/* --------------------------------
+   NUMBER
+-------------------------------- */
+
+.line-sidebar__index {
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
+
+  margin-right: 0.8rem;
+
+  font-size: 0.7em;
+
+  opacity: calc(
+    0.45 +
+      var(--effect, 0) *
+        0.55
+  );
+}
+
+/* --------------------------------
+   TEXT
+-------------------------------- */
+
+.line-sidebar__text {
+  font-weight: 500;
+
+  letter-spacing: -0.015em;
+}
+
+/* --------------------------------
+   MAIN MARKER
+-------------------------------- */
+
+.line-sidebar__marker {
+  position: absolute;
+
+  top: 50%;
+
+  left: calc(
+    -1 *
+      var(--marker-length) -
+      var(--marker-gap)
+  );
+
+  height: 1px;
+
+  width: var(--marker-length);
+
+  background-color: color-mix(
+    in srgb,
+    var(--accent-color)
+      calc(var(--effect, 0) * 100%),
+    var(--marker-color)
+  );
+
+  transform-origin: left center;
+
+  transform:
+    translateY(-50%)
+    scaleX(
+      calc(
+        0.7 +
+          var(--effect, 0) *
+            0.5
+      )
+    );
+
+  transition:
+    background-color 0.08s linear,
+    transform 0.12s ease;
+}
+
+/* --------------------------------
+   SMALL CONNECTING TICKS
+-------------------------------- */
+
+.line-sidebar--markers
+  .line-sidebar__item:not(:last-child)::after {
+  content: "";
+
+  position: absolute;
+
+  top: calc(
+    100% +
+      var(--item-gap) / 2
+  );
+
+  left: calc(
+    -1 *
+      var(--marker-length) -
+      var(--marker-gap)
+  );
+
+  height: 1px;
+
+  width: calc(
+    var(--marker-length) *
+      var(--tick-scale)
+  );
+
+  background-color:
+    var(--marker-color);
+
+  opacity: 0.45;
+
+  transform:
+    translateY(-50%);
+}
+
+/* --------------------------------
+   SCALE TICK ANIMATION
+-------------------------------- */
+
+.line-sidebar--scale-tick
+  .line-sidebar__item:not(:last-child)::after {
+  transform-origin: left center;
+
+  transform:
+    translateY(-50%)
+    scaleX(
+      calc(
+        0.7 +
+          var(--effect, 0) *
+            0.6
+      )
+    );
+}
+
+/* --------------------------------
+   ACTIVE ITEM
+-------------------------------- */
+
+.line-sidebar__item.is-active
+  .line-sidebar__label {
+  font-weight: 650;
+}
+
+/* --------------------------------
+   ACTIVE MARKER
+-------------------------------- */
+
+.line-sidebar__item.is-active
+  .line-sidebar__marker {
+  background-color: var(--accent-color);
+
+  box-shadow:
+    0 0 8px
+      rgba(255, 159, 252, 0.35);
+}
+
+/* --------------------------------
+   RESPONSIVE
+-------------------------------- */
+
+@media (max-width: 900px) {
+  .line-sidebar {
+    --marker-length: 48px;
+    --marker-gap: 12px;
+    --font-size: 1.05rem;
+    --item-gap: 28px;
+  }
+}
+
+@media (max-width: 760px) {
+  .line-sidebar {
+    --marker-length: 42px;
+    --marker-gap: 11px;
+    --font-size: 1rem;
+    --item-gap: 24px;
+  }
+}

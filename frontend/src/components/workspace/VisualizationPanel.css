@@ -1,0 +1,593 @@
+
+/* ============================================================
+   VISUALIZATION PANEL
+============================================================ */
+
+/* ---- GRID ---- */
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+
+/* ---- CARD ---- */
+
+.viz-card {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 16px;
+  background: rgba(14, 11, 20, 0.65);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.viz-card:hover {
+  border-color: rgba(82, 39, 255, 0.4);
+  transform: translateY(-3px);
+}
+
+.viz-card-img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  padding: 16px;
+  background: white;
+  display: block;
+}
+
+.viz-card-placeholder {
+  width: 100%;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 2rem;
+}
+
+.viz-card-footer {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.viz-card-type {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ff9ffc;
+}
+
+.viz-card-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+}
+
+.viz-card-expand {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.viz-card:hover .viz-card-expand {
+  opacity: 1;
+}
+
+/* ---- LIGHTBOX ---- */
+
+.viz-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(5, 3, 7, 0.88);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: lb-in 0.18s ease;
+}
+
+@keyframes lb-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.viz-lightbox-inner {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  background: rgba(14, 11, 20, 0.95);
+  overflow: hidden;
+}
+
+.viz-lightbox-title {
+  padding: 16px 20px 12px;
+  font-size: 0.9rem;
+  font-weight: 650;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.viz-lightbox-img {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  padding: 20px;
+  background: white;
+  display: block;
+}
+
+.viz-lightbox-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.viz-lightbox-close:hover {
+  background: rgba(255, 80, 80, 0.15);
+  border-color: rgba(255, 80, 80, 0.4);
+  color: #ff9090;
+}
+
+
+/* ============================================================
+   MODULE 4 — COMPACT UPLOAD SECTION
+============================================================ */
+
+/* Reduce the upload area height */
+
+.upload-dropzone {
+  min-height: 0;
+  padding: 20px 20px;
+  gap: 8px;
+}
+
+.upload-dropzone-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.upload-dropzone-text {
+  margin: 0;
+}
+
+.upload-dropzone-types {
+  gap: 5px;
+}
+
+/* Tighten spacing above the form */
+
+.upload-panel-header {
+  margin-bottom: 20px;
+}
+
+.upload-form {
+  gap: 14px;
+}
+
+/* Compact analytical question */
+
+.upload-request {
+  min-height: 100px;
+  height: 100px;
+}
+
+/* ============================================================
+   MODULE 5 — PROMPT HELPER SECTION
+============================================================ */
+
+.prompt-helper-section {
+  width: 100%;
+  margin-top: 14px;
+  margin-bottom: 0;
+}
+
+.prompt-helper-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.prompt-helper-eyebrow {
+  display: block;
+  margin-bottom: 5px;
+  color: #d99be9;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+
+.prompt-helper-title {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.98rem;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+
+.prompt-helper-description {
+  margin: 5px 0 0;
+  color: rgba(255, 255, 255, 0.43);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+
+/* ============================================================
+   PROMPT HELPER GRID
+============================================================ */
+
+.prompt-helper-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+/* ---- INDIVIDUAL HELPER CARD ---- */
+
+.prompt-helper-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 56px;
+  padding: 9px 11px;
+
+  color: rgba(255, 255, 255, 0.85);
+  text-align: left;
+  font-family: inherit;
+
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.prompt-helper-card:hover:not(:disabled) {
+  background: rgba(130, 75, 255, 0.09);
+  border-color: rgba(177, 123, 255, 0.42);
+  box-shadow: 0 4px 18px rgba(99, 49, 190, 0.08);
+  transform: translateY(-2px);
+}
+
+.prompt-helper-card:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.prompt-helper-card:focus-visible {
+  outline: 2px solid #b88aff;
+  outline-offset: 3px;
+}
+
+/* ---- ICON CONTAINER ---- */
+
+.prompt-helper-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 32px;
+  height: 32px;
+
+  color: #d3a5ff;
+  font-size: 1.05rem;
+
+  background: rgba(135, 80, 255, 0.12);
+  border: 1px solid rgba(170, 120, 255, 0.13);
+  border-radius: 9px;
+}
+
+/* ---- TEXT CONTENT ---- */
+
+.prompt-helper-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.prompt-helper-label {
+  color: rgba(255, 255, 255, 0.91);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.prompt-helper-card-description {
+  color: rgba(255, 255, 255, 0.43);
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
+
+/* ---- ARROW ---- */
+
+.prompt-helper-arrow {
+  flex-shrink: 0;
+  align-self: flex-start;
+
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.85rem;
+
+  transition: color 180ms ease;
+}
+
+.prompt-helper-card:hover:not(:disabled) .prompt-helper-arrow {
+  color: #d3a5ff;
+}
+
+/* ---- SELECTED HELPER ---- */
+
+.prompt-helper-card--active {
+  background: rgba(130, 75, 255, 0.12);
+  border-color: rgba(177, 123, 255, 0.55);
+  box-shadow: 0 0 16px rgba(99, 49, 190, 0.1);
+}
+
+/* ---- DISABLED STATE ---- */
+
+.prompt-helper-card:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
+/* ============================================================
+   RESPONSIVE LAYOUT
+============================================================ */
+
+/* ---- TABLET ---- */
+
+@media (max-width: 760px) {
+  .upload-dropzone {
+    padding: 18px 16px;
+  }
+
+  .upload-request {
+    height: 110px;
+    min-height: 110px;
+  }
+
+  .prompt-helper-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .prompt-helper-card {
+    padding: 10px;
+  }
+}
+
+/* ---- MOBILE ---- */
+
+@media (max-width: 420px) {
+  .prompt-helper-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .prompt-helper-card {
+    min-height: 56px;
+  }
+
+  .prompt-helper-title {
+    font-size: 0.92rem;
+  }
+
+  .prompt-helper-description {
+    font-size: 0.74rem;
+  }
+
+  .upload-dropzone {
+    padding: 16px 12px;
+  }
+}
+
+/* ---- VISUALIZATION MOBILE ---- */
+
+@media (max-width: 600px) {
+  .viz-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .viz-lightbox {
+    padding: 12px;
+  }
+
+  .viz-lightbox-img {
+    max-height: 65vh;
+    padding: 12px;
+  }
+}
+
+/* ---- REDUCED MOTION ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .prompt-helper-card,
+  .prompt-helper-arrow,
+  .viz-card,
+  .viz-card-expand,
+  .viz-lightbox-close {
+    transition: none;
+  }
+
+  .prompt-helper-card:hover,
+  .viz-card:hover {
+    transform: none;
+  }
+
+  .viz-lightbox {
+    animation: none;
+  }
+}
+/* =========================================
+   COMPACT UPLOAD DROPZONE
+========================================= */
+
+.upload-dropzone {
+  min-height: 0;
+  padding: 12px 16px;
+  gap: 5px;
+}
+
+.upload-dropzone-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.upload-dropzone-text {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.upload-dropzone-types {
+  gap: 3px;
+}
+
+.upload-dropzone-hint {
+  font-size: 0.76rem;
+}
+
+.upload-dropzone-exts {
+  font-size: 0.62rem;
+}
+
+/* =========================================
+   QUICK START — SINGLE ROW
+========================================= */
+
+.prompt-helper-section {
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+.prompt-helper-header {
+  margin-bottom: 9px;
+}
+
+.prompt-helper-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.prompt-helper-card {
+  min-width: 0;
+  min-height: 46px;
+  padding: 8px 6px;
+  gap: 6px;
+
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.prompt-helper-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 0.85rem;
+  border-radius: 7px;
+}
+
+.prompt-helper-content {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.prompt-helper-label {
+  font-size: 0.76rem;
+  white-space: nowrap;
+}
+
+.prompt-helper-card-description {
+  display: none;
+}
+
+.prompt-helper-arrow {
+  display: none;
+}
+
+/* =========================================
+   RESPONSIVE QUICK START
+========================================= */
+
+@media (max-width: 900px) {
+  .prompt-helper-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .prompt-helper-card {
+    justify-content: flex-start;
+    padding: 8px 10px;
+  }
+
+  .prompt-helper-icon {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 520px) {
+  .prompt-helper-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .upload-dropzone {
+    padding: 14px 10px;
+  }
+
+  .prompt-helper-card {
+    min-height: 44px;
+  }
+}

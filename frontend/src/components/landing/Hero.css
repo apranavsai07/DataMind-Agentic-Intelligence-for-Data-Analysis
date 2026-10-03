@@ -1,0 +1,263 @@
+/* ============================================================
+   HERO SECTION — AI Data Analyst Workspace
+============================================================ */
+
+/* ── Capabilities pill row ─────────────────────────────── */
+.hero-capabilities {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 32px;
+  animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.95s both;
+}
+
+.hero-capabilities span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.01em;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.hero-capabilities span:hover {
+  background: rgba(82, 39, 255, 0.12);
+  border-color: rgba(82, 39, 255, 0.35);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Icon dot before each span */
+.hero-capabilities span::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.hero-capabilities span:nth-child(1)::before {
+  background: linear-gradient(135deg, #5227ff, #a78bfa);
+  box-shadow: 0 0 8px rgba(82, 39, 255, 0.7);
+}
+.hero-capabilities span:nth-child(3)::before {
+  background: linear-gradient(135deg, #ff9ffc, #c084fc);
+  box-shadow: 0 0 8px rgba(255, 159, 252, 0.7);
+}
+.hero-capabilities span:nth-child(5)::before {
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
+}
+
+/* Separator dots (the <i> elements) */
+.hero-capabilities i {
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0 8px;
+  flex-shrink: 0;
+}
+
+/* ── CTA Buttons row ────────────────────────────────────── */
+.hero-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.05s both;
+}
+
+.hero-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: none;
+  background: white;
+  color: #0a0710;
+  font-size: 0.92rem;
+  font-weight: 650;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.hero-cta-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(255, 159, 252, 0.3);
+}
+
+.hero-cta-primary svg {
+  transition: transform 0.22s ease;
+}
+.hero-cta-primary:hover svg {
+  transform: translateX(3px);
+}
+
+.hero-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.88rem;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.22s ease, color 0.22s ease, background 0.22s ease;
+}
+
+.hero-cta-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Scroll indicator ───────────────────────────────────── */
+.hero-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 52px;
+  background: none;
+  border: none;
+  padding: 0;
+  animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.15s both;
+}
+
+.hero-scroll span {
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.25);
+  transition: color 0.2s ease;
+}
+
+.hero-scroll:hover span {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), transparent);
+  animation: hero-scroll-bounce 1.8s ease-in-out infinite;
+}
+
+@keyframes hero-scroll-bounce {
+  0%, 100% { transform: scaleY(1); opacity: 0.4; }
+  50%       { transform: scaleY(1.4); opacity: 0.9; }
+}
+
+/* ── Trust / stat bar ───────────────────────────────────── */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.1s both;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.hero-stat-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #fff 30%, #e9d8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-stat-label {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Gradient glow spots ────────────────────────────────── */
+.hero-glow-left {
+  position: absolute;
+  left: -10%;
+  top: 30%;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(82, 39, 255, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.hero-glow-right {
+  position: absolute;
+  right: -10%;
+  top: 20%;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 159, 252, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .hero-capabilities {
+    gap: 6px;
+    margin-top: 24px;
+  }
+  .hero-capabilities span {
+    font-size: 0.76rem;
+    padding: 7px 13px;
+  }
+  .hero-capabilities i {
+    display: none;
+  }
+  .hero-cta-row {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 28px;
+  }
+  .hero-cta-primary,
+  .hero-cta-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+  .hero-stats {
+    gap: 20px;
+    margin-top: 36px;
+  }
+}

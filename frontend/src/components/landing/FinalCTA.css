@@ -1,0 +1,166 @@
+.final-cta {
+  position: relative;
+  padding: 120px 32px;
+  color: white;
+}
+
+.final-cta-content {
+  width: min(900px, 100%);
+  margin: 0 auto;
+}
+
+.final-cta-heading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.final-cta-label {
+  display: inline-block;
+
+  margin-bottom: 14px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+
+  color: #ff9ffc;
+}
+
+.final-cta-heading h2 {
+  margin: 0;
+
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1;
+
+  letter-spacing: -0.045em;
+}
+
+.final-cta-heading p {
+  max-width: 500px;
+
+  margin: 18px auto 0;
+
+  color: rgba(255, 255, 255, 0.5);
+
+  line-height: 1.6;
+}
+
+.auth-choice-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 18px;
+}
+
+.auth-choice-card {
+  min-height: 330px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 32px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+
+  background: rgba(18, 14, 26, 0.55);
+
+  backdrop-filter: blur(18px);
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.auth-choice-card:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(255, 159, 252, 0.3);
+}
+
+.auth-choice-number {
+  color: #ff9ffc;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.auth-choice-card h3 {
+  margin: 28px 0 12px;
+
+  font-size: 1.65rem;
+
+  letter-spacing: -0.03em;
+}
+
+.auth-choice-card p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.5);
+
+  font-size: 0.9rem;
+
+  line-height: 1.65;
+}
+
+.auth-choice-primary,
+.auth-choice-secondary {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: auto;
+  padding: 13px 18px;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.auth-choice-primary {
+  border: none;
+
+  background: white;
+
+  color: #0a0710;
+}
+
+.auth-choice-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  background: rgba(255, 255, 255, 0.05);
+
+  color: white;
+}
+
+.auth-choice-primary:hover,
+.auth-choice-secondary:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 700px) {
+  .final-cta {
+    padding: 90px 24px;
+  }
+
+  .auth-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-choice-card {
+    min-height: 280px;
+  }
+}

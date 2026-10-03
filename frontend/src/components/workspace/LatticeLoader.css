@@ -1,0 +1,98 @@
+.lattice-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ll-color, #f5f5f5);
+  font-family: inherit;
+  min-width: 0;
+}
+
+.lattice-loader__grid {
+  display: grid;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-items: center;
+}
+
+.lattice-loader__cell {
+  display: block;
+  width: var(--ll-cell-size, 6px);
+  height: var(--ll-cell-size, 6px);
+  border-radius: var(--ll-shape, 50%);
+  background: currentColor;
+  opacity: var(--ll-idle-opacity, 0.15);
+  animation: lattice-loader-pulse 1.35s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.lattice-loader__grid--orbit .lattice-loader__cell {
+  animation-name: lattice-loader-orbit;
+}
+
+.lattice-loader__text {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 7px;
+  min-width: 0;
+  font-size: var(--ll-font-size, 14px);
+  line-height: 1.4;
+}
+
+.lattice-loader__label {
+  font-weight: 550;
+}
+
+.lattice-loader__timer {
+  color: currentColor;
+  opacity: 0.55;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.88em;
+}
+
+.lattice-loader--done {
+  color: var(--ll-done-color, #22c55e);
+}
+
+.lattice-loader--error {
+  color: var(--ll-error-color, #ef4444);
+}
+
+.lattice-loader--done .lattice-loader__cell,
+.lattice-loader--error .lattice-loader__cell {
+  animation: none;
+  opacity: 1;
+}
+
+.lattice-loader[style*="--ll-glow-color"]:has(.lattice-loader__cell) .lattice-loader__cell {
+  box-shadow: none;
+}
+
+@keyframes lattice-loader-pulse {
+  0%, 100% {
+    opacity: var(--ll-idle-opacity, 0.15);
+    transform: scale(0.72);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes lattice-loader-orbit {
+  0%, 100% {
+    opacity: var(--ll-idle-opacity, 0.15);
+    filter: brightness(0.85);
+  }
+  45%, 60% {
+    opacity: 1;
+    filter: brightness(1.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lattice-loader__cell {
+    animation: none;
+    opacity: 0.75;
+  }
+}

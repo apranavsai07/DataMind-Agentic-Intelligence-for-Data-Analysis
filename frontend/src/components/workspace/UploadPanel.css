@@ -1,0 +1,1110 @@
+/* ============================================================
+   UPLOAD PANEL
+============================================================ */
+
+.upload-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: min(100%, 900px);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.upload-panel-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.upload-panel-title {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: white;
+  line-height: 1.15;
+}
+
+.upload-panel-sub {
+  margin: 0;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.55;
+}
+
+/* ============================================================
+   FORM
+============================================================ */
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ============================================================
+   DROP ZONE
+============================================================ */
+
+.upload-dropzone {
+  position: relative; /* Important: contains the invisible file input */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 28px 20px;
+  gap: 8px;
+
+  border: 1.5px dashed rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+
+  cursor: pointer;
+  text-align: center;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.upload-dropzone:hover,
+.upload-dropzone--active {
+  border-color: rgba(82, 39, 255, 0.5);
+  background: rgba(82, 39, 255, 0.05);
+}
+
+.upload-dropzone-icon {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.upload-dropzone:hover .upload-dropzone-icon {
+  opacity: 1;
+}
+
+.upload-dropzone-text {
+  margin: 0;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.upload-dropzone-cta {
+  color: #ff9ffc;
+  font-weight: 600;
+}
+
+/* ── Two-row type hint inside drop zone ─────────────────────── */
+
+.upload-dropzone-types {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+}
+
+.upload-dropzone-hint {
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.02em;
+}
+
+.upload-dropzone-exts {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.16);
+  font-family: "JetBrains Mono", "Fira Mono", monospace;
+  letter-spacing: 0.03em;
+}
+
+/* ── Drop zone error state ───────────────────────────────────── */
+
+.upload-dropzone--error {
+  border-color: rgba(248, 113, 113, 0.45);
+  background: rgba(248, 113, 113, 0.04);
+  animation: upload-error-flash 0.35s ease;
+}
+
+@keyframes upload-error-flash {
+  0%   { border-color: rgba(248, 113, 113, 0.8); background: rgba(248, 113, 113, 0.1); }
+  100% { border-color: rgba(248, 113, 113, 0.45); background: rgba(248, 113, 113, 0.04); }
+}
+
+.upload-file-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================================
+   FILE CHIP
+============================================================ */
+
+.upload-file-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 16px;
+
+  border: 1px solid rgba(82, 39, 255, 0.35);
+  border-radius: 14px;
+
+  background: rgba(82, 39, 255, 0.08);
+
+  position: relative; /* needed for drop-to-replace overlay */
+  overflow: hidden;
+}
+
+.upload-file-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.upload-file-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upload-file-size {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.upload-file-remove {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.upload-file-remove:hover {
+  background: rgba(255, 80, 80, 0.15);
+  border-color: rgba(255, 80, 80, 0.4);
+  color: #ff9090;
+}
+
+/* ── Error banner (invalid file type) ───────────────────────── */
+
+.upload-file-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+
+  padding: 12px 14px;
+
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  border-radius: 12px;
+
+  background: rgba(248, 113, 113, 0.06);
+
+  font-size: 0.82rem;
+  color: rgba(252, 165, 165, 0.9);
+  line-height: 1.5;
+
+  animation: upload-error-slide 0.22s ease;
+}
+
+@keyframes upload-error-slide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.upload-file-error svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── File type badge (coloured pill on chip) ─────────────────── */
+
+.upload-file-type-badge {
+  flex-shrink: 0;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--badge-color, rgba(255, 255, 255, 0.5));
+  background: color-mix(in srgb, var(--badge-color, rgba(255,255,255,0.3)) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--badge-color, rgba(255,255,255,0.3)) 25%, transparent);
+  /* Fallback for browsers without color-mix */
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ── File meta row (size + Replace link) ─────────────────────── */
+
+.upload-file-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.upload-file-replace {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-family: "Inter", sans-serif;
+  color: rgba(167, 139, 250, 0.75);
+  transition: color 0.15s ease;
+}
+
+.upload-file-replace:hover {
+  color: #a78bfa;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.upload-file-chip--drag {
+  border-color: rgba(82, 39, 255, 0.65);
+  background: rgba(82, 39, 255, 0.14);
+}
+
+.upload-chip-drop-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: rgba(82, 39, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #c4b5fd;
+  letter-spacing: 0.01em;
+  pointer-events: none;
+}
+
+/* ============================================================
+   REQUEST TEXTAREA
+============================================================ */
+
+.upload-request {
+  display: block;
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  min-height: 110px;
+  box-sizing: border-box;
+  padding: 14px 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+
+  color: white;
+  font-size: 0.88rem;
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+
+  resize: vertical;
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.upload-request:focus {
+  border-color: rgba(82, 39, 255, 0.55);
+  background: rgba(82, 39, 255, 0.05);
+  box-shadow: 0 0 0 3px rgba(82, 39, 255, 0.12);
+}
+
+.upload-request:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   SUBMIT
+============================================================ */
+
+.upload-submit {
+  width: 100%;
+  padding: 14px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: white;
+  color: #0a0710;
+
+  font-size: 0.92rem;
+  font-weight: 650;
+  font-family: "Inter", sans-serif;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.upload-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 159, 252, 0.22);
+}
+
+.upload-submit:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.upload-submit-spinner {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(10, 7, 16, 0.25);
+  border-top-color: #0a0710;
+  border-radius: 50%;
+  animation: upload-spin 0.65s linear infinite;
+}
+
+@keyframes upload-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   WIDE WORKSPACE + SINGLE-ROW QUICK START
+   ============================================================ */
+
+.upload-panel {
+  width: min(100%, 1100px);
+  max-width: 1100px;
+}
+
+/* Six shortcuts in one row on desktop */
+.prompt-helper-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.prompt-helper-card {
+  min-width: 0;
+  min-height: 76px;
+  padding: 12px;
+  gap: 10px;
+  border-radius: 14px;
+}
+
+/* Compact cards keep all six shortcuts on one line */
+.prompt-helper-card-description {
+  display: none;
+}
+
+.prompt-helper-arrow {
+  display: none;
+}
+
+.prompt-helper-content {
+  min-width: 0;
+}
+
+.prompt-helper-label {
+  white-space: nowrap;
+}
+
+/* Keep the row comfortable on medium screens */
+@media (max-width: 900px) {
+  .upload-panel {
+    width: 100%;
+  }
+
+  .prompt-helper-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Avoid cramped cards on mobile */
+@media (max-width: 560px) {
+  .prompt-helper-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .prompt-helper-card {
+    min-height: 64px;
+    padding: 10px;
+  }
+}
+
+/* ============================================================
+   INTEGRATED PROMPT + RUN BUTTON
+   ============================================================ */
+
+.upload-request-wrap {
+  gap: 10px;
+}
+
+.upload-request {
+  min-height: 150px;
+  padding: 18px;
+  border-radius: 16px 16px 0 0;
+  border-bottom: 0;
+  resize: vertical;
+}
+
+.prompt-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: -10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 0;
+  border-radius: 0 0 16px 16px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.prompt-action-hint {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.75rem;
+}
+
+.prompt-submit {
+  width: auto;
+  min-width: 155px;
+  min-height: 42px;
+  padding: 0 18px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   SINGLE PROMPT LOADING STATE
+   ============================================================ */
+
+.prompt-thinking {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid rgba(130, 90, 255, 0.3);
+  border-radius: 16px 16px 0 0;
+  background:
+    radial-gradient(
+      ellipse at top left,
+      rgba(82, 39, 255, 0.08),
+      transparent 65%
+    ),
+    rgba(255, 255, 255, 0.025);
+}
+
+.prompt-thinking-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.prompt-thinking-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.prompt-thinking-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.5);
+  animation: thinking-pulse 1.4s ease-in-out infinite;
+}
+
+.prompt-thinking-label {
+  overflow: hidden;
+  color: #f5f3ff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  animation: thinking-label-in 0.25s ease both;
+}
+
+.prompt-thinking-count {
+  flex-shrink: 0;
+  color: #c4b5fd;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+}
+
+.prompt-thinking-count span {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.prompt-thinking-file {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  padding: 9px 11px;
+  border: 1px solid rgba(167, 139, 250, 0.16);
+  border-radius: 10px;
+  background: rgba(82, 39, 255, 0.08);
+}
+
+.prompt-thinking-file-icon {
+  flex-shrink: 0;
+  color: #c4b5fd;
+}
+
+.prompt-thinking-file-name {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.78rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prompt-thinking-loader {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 34px;
+}
+
+@keyframes thinking-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes thinking-label-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 560px) {
+  .prompt-thinking {
+    padding: 14px;
+  }
+
+  .prompt-action-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .prompt-submit {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prompt-thinking *,
+  .prompt-thinking *::before,
+  .prompt-thinking *::after {
+    animation-duration: 0.01ms !important;
+  }
+}
+/* ================================================
+   ANALYTICAL PROMPT — UNIFIED BOX
+================================================ */
+
+.upload-request-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Textarea */
+.upload-request {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100px;
+  min-height: 100px;
+  margin: 0;
+  padding: 12px 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.025);
+  color: #fff;
+
+  font-size: 0.84rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+/* ============================================================
+   UNIFIED PROMPT COMPOSER
+   Textarea + Run Analysis button in ONE box
+============================================================ */
+
+.prompt-composer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 14px;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.prompt-composer:focus-within {
+  border-color: rgba(82, 39, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(82, 39, 255, 0.08);
+}
+
+
+/* ============================================================
+   TEXTAREA
+   No individual border, background, or outer box
+============================================================ */
+
+.prompt-composer .upload-request {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 100px;
+  height: 100px;
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 14px 16px;
+
+  border: none;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+
+  background: transparent;
+  color: #f5f5f5;
+
+  font-family: "Inter", sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.55;
+
+  resize: none;
+}
+
+.prompt-composer .upload-request::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.prompt-composer .upload-request:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.prompt-composer .upload-request:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+
+/* ============================================================
+   INTEGRATED ACTION ROW
+   No separate box or dividing line
+============================================================ */
+
+.prompt-composer .prompt-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 8px 12px 10px;
+
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+.prompt-action-hint {
+  min-width: 0;
+
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+
+/* ============================================================
+   COMPACT RUN ANALYSIS BUTTON
+============================================================ */
+
+.prompt-composer .upload-submit.prompt-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  width: auto;
+  min-width: 0;
+  flex: 0 0 auto;
+
+  margin: 0;
+  padding: 8px 14px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: #f5f5f5;
+  color: #0a0710;
+
+  font-family: "Inter", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.2;
+
+  white-space: nowrap;
+}
+
+.prompt-composer .upload-submit.prompt-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 159, 252, 0.16);
+}
+
+.prompt-composer .upload-submit.prompt-submit:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.prompt-composer .prompt-submit .upload-submit-spinner {
+  width: 13px;
+  height: 13px;
+}
+
+
+/* ============================================================
+   LOADING / THINKING STATE
+   Remains inside the same composer
+============================================================ */
+
+.prompt-composer .prompt-thinking {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 14px 16px;
+
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+.prompt-composer .prompt-thinking-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.prompt-composer .prompt-thinking-status {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.prompt-composer .prompt-thinking-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prompt-composer .prompt-thinking-file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.prompt-composer .prompt-thinking-file-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prompt-composer .prompt-thinking-loader {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.prompt-composer .prompt-thinking-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.prompt-composer .prompt-pause-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  background: rgba(248, 113, 113, 0.1);
+  color: #fca5a5;
+  font-family: "Inter", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.prompt-composer .prompt-pause-btn:hover {
+  background: rgba(248, 113, 113, 0.22);
+  border-color: rgba(248, 113, 113, 0.7);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(248, 113, 113, 0.2);
+}
+
+.prompt-composer .prompt-pause-btn:active {
+  transform: translateY(0);
+}
+
+.prompt-composer .prompt-pause-icon {
+  font-size: 0.65rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+
+/* ============================================================
+   PROMPT WRAPPER
+============================================================ */
+
+.upload-request-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* ============================================================
+   COMPACT UPLOAD SECTION
+============================================================ */
+
+.upload-panel {
+  width: min(100%, 1100px);
+  max-width: 1100px;
+  gap: 16px;
+}
+
+.upload-panel-header {
+  gap: 4px;
+}
+
+.upload-panel-title {
+  font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+}
+
+.upload-panel-sub {
+  font-size: 0.82rem;
+}
+
+
+/* ============================================================
+   SMALLER FILE DROPZONE
+============================================================ */
+
+.upload-dropzone {
+  min-height: 0;
+  padding: 16px 20px;
+  gap: 5px;
+
+  border-radius: 14px;
+
+  /* Keep the existing border style from the main CSS.
+     This avoids forcing a dotted or dashed border here. */
+}
+
+.upload-dropzone-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.upload-dropzone-text {
+  font-size: 0.82rem;
+}
+
+.upload-dropzone-hint {
+  font-size: 0.7rem;
+}
+
+.upload-dropzone-exts {
+  font-size: 0.62rem;
+}
+
+
+/* ============================================================
+   SIX SHORTCUTS — ONE ROW ON DESKTOP
+============================================================ */
+
+.prompt-helper-section {
+  width: 100%;
+  min-width: 0;
+}
+
+.prompt-helper-header {
+  margin-bottom: 12px;
+}
+
+.prompt-helper-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.prompt-helper-card {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  min-width: 0;
+  min-height: 64px;
+  padding: 10px;
+
+  border-radius: 13px;
+}
+
+.prompt-helper-content {
+  min-width: 0;
+}
+
+.prompt-helper-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prompt-helper-card-description,
+.prompt-helper-arrow {
+  display: none;
+}
+
+
+/* ============================================================
+   RESPONSIVE LAYOUT
+============================================================ */
+
+@media (max-width: 1000px) {
+  .upload-panel {
+    width: 100%;
+  }
+
+  .prompt-helper-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .prompt-composer .upload-request {
+    min-height: 100px;
+    height: 100px;
+    padding: 12px;
+  }
+
+  .prompt-composer .prompt-action-row {
+    gap: 8px;
+    padding: 8px 10px 10px;
+  }
+
+  .prompt-composer .upload-submit.prompt-submit {
+    padding: 8px 11px;
+    font-size: 0.75rem;
+  }
+
+  .prompt-action-hint {
+    font-size: 0.7rem;
+  }
+
+  .prompt-helper-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .prompt-helper-card {
+    min-height: 58px;
+    padding: 9px;
+  }
+}
